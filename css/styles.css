@@ -1,0 +1,86 @@
+html,
+body {
+    height: 100%;
+}
+body {
+    display: flex;
+    flex-direction: column;
+    font-family: "Poppins", sans-serif;
+}
+main {
+    flex: 1;
+}
+
+/* navbar general */
+.custom-navbar {
+    background-image: linear-gradient(to right top, #0f010f, #2f1041, #30205a, #273070, #0c4186);    padding: 0.75rem 1rem;
+    color: white;
+}
+
+/* contenedor interno */
+.container-navbar {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* logo */
+.logo {
+    max-height: 44px;
+}
+
+/* titulo */
+.titulo {
+    margin-right: 20px;
+    margin-left: 20px;
+    font-size: 1.5rem;
+}
+
+/* ocultar el logo en mobile */
+@media (max-width: 575px) {
+    .titulo {
+        display: none;
+    }
+}
+
+/* input de búsqueda */
+.search-input {
+    flex: 1;
+    padding: 0.5rem 0.75rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+@media (max-width: 575px) {
+    .search-input {
+        font-size: 0.9rem;
+        padding: 0.4rem 0.6rem;
+    }
+}
+
+/* boton del carrito */
+.cart-btn {
+    background-color: white;
+    color: #111;
+    border: none;
+    padding: 0.5rem;
+    border-radius: 4px;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+
+.cart-btn:hover {
+    background-color: #ddd;
+    cursor: pointer;
+}
+
+.cart-btn i {
+    font-size: 1.2rem;
+}

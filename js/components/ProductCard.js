@@ -15,3 +15,18 @@
 // "count": 120
 // }
 
+
+function createProductCard(producto){
+    return `<div class="card" style="width: 18rem;">
+                <img src="${product.image}" class="card-img-top" alt="">
+                <div class="card-body">
+                    <h5 class="card-title">${product.title}</h5>
+                    <h5 class="price">${product.price}</h5>
+                    <p class="card-text">${product.description}</p>
+                    <a href="#" class="btn btn-primary">VER MÁS</a>
+                </div>
+            </div>
+`
+}
+
+//Preguntar si el contenido del objeto está bien, o si tengo q agregarle los demás datos.

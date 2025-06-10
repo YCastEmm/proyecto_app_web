@@ -3,9 +3,10 @@
 // por cada producto genera la card y la inserta en el dom
 // antes de renderizar limpia el contenido del contenedor
 
-const container = document.querySelector('main.container my-4')
-
-function renderProducts(arrayProducts){
+function renderProducts(arrayProducts, containerId){
+    
+    const container = document.getElementById(containerId)
+    
     if(arrayProducts.length > 0) {
         container.innerHTML= ''
         arrayProducts.forEach(producto => {
@@ -16,4 +17,3 @@ function renderProducts(arrayProducts){
     }
 }
 
-renderProducts()

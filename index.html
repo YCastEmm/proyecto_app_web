@@ -15,7 +15,7 @@
         <header>
             <nav class="custom-navbar">
                 <div class="container-navbar">
-                    <img class="logo" src="./img/logo.png" alt="">
+                    <img class="logo" src="./img/logo.png" alt="" />
                     <span class="titulo">E-commerce</span>
 
                     <input type="text" id="searchInput" class="search-input" placeholder="Buscar productos..." />
@@ -29,14 +29,20 @@
             <div class="w-100">
                 <img src="img/banner.jpeg" alt="Banner" class="img-fluid w-100" />
             </div>
+
+            <section class="cart-sidebar bg-dark text-light" id="sidebar">
+                <div class="p-3 border-bottom">Carrito</div>
+                <!-- acá se renderiza el carrito -->
+                <div id="cartContainer"></div>
+            </section>
         </header>
 
         <main class="container my-4">
             <!-- aca se renderizan los productos -->
-            <section id="productList" class="row gy-4"></section>
+            <section id="productList" class="row gap-4"></section>
         </main>
 
-        <footer class="text-center py-4 bg-dark text-light">
+        <footer class="text-center py-5 bg-dark text-light">
             <small>E-commerce de muestra | Laboratorio de Aplicaciones Web | &copy; 2025</small>
         </footer>
 

@@ -9,23 +9,43 @@
 //   - clic en los botones ver mas para abrir el modal
 // - coordina el uso del carrito: agrega productos, actualiza cantidades, guarda en localstorage y actualiza el sidebar
 
+import { renderCartItems } from "./components/CartSidebar.js";
+import { fetchProducts } from "./data/fetchProducts.js";
+import { renderProducts } from "./utils/render.js";
 
-import { showCartSidebar } from "./components/CartSidebar.js"
-import { fetchProducts } from "./data/fetchProducts.js"
-import { renderProducts } from "./utils/render.js"
+const cartBtn = document.getElementById("cartToggleBtn");
+const closeBtn = document.getElementById("btn-close");
+const cartSidebar = document.getElementById("cart-sidebar");
+const containerId = "productList";
 
-const cartBtn = document.getElementById("cartToggleBtn")
-const sidebar = document.getElementById("sidebar")
-const containerId = "productList"
+// ! ARRAY DE PRUEBA PARA ARMAR EL CARRITO
+const cart = [
+    {
+        id: 1,
+        title: "Fjallraven Backpack",
+        price: 109.95,
+        image: "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
+        cantidad: 1,
+    },
+    {
+        id: 2,
+        title: "Pelota de futbol",
+        price: 25.95,
+        image: "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
+        cantidad: 1,
+    },
+];
 
 cartBtn.addEventListener("click", () => {
-    sidebar.toggleAttribute("hidden")
-    showCartSidebar()
-})
+    cartSidebar.toggleAttribute("hidden");
+    renderCartItems(cart);
+});
 
-const products = await fetchProducts("https://fakestoreapi.com/products")
+closeBtn.addEventListener("click", () => {
+    cartSidebar.toggleAttribute("hidden");
+});
+
+const products = await fetchProducts("https://fakestoreapi.com/products");
 console.log(products);
 
-
-renderProducts(products, containerId)
-
+renderProducts(products, containerId);

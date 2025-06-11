@@ -13,7 +13,8 @@ main {
 
 /* navbar general */
 .custom-navbar {
-    background-image: linear-gradient(to right top, #0f010f, #2f1041, #30205a, #273070, #0c4186);    padding: 0.75rem 1rem;
+    background-image: linear-gradient(to right top, #0f010f, #2f1041, #30205a, #273070, #0c4186);
+    padding: 0.75rem 1rem;
     color: white;
 }
 
@@ -85,13 +86,11 @@ main {
     font-size: 1.2rem;
 }
 
-
 /* ***************************
 *                            *
 *    Clases para las card    *
 *                            *
 *************************** */
-
 
 .card {
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -111,22 +110,22 @@ main {
     font-size: 16px;
 }
 
-.card-btn { 
-    background-image: linear-gradient(to right top, #0f010f, #2f1041, #30205a, #273070, #0c4186);    padding: 0.75rem 1rem;
+.card-btn {
+    background-image: linear-gradient(to right top, #0f010f, #2f1041, #30205a, #273070, #0c4186);
+    padding: 0.75rem 1rem;
     border: none;
 }
 
 .card-btn:hover {
-    background-image: linear-gradient(to right top, #290429, #461a5f, #402c72, #48348f, #134f9e);    padding: 0.75rem 1rem;
+    background-image: linear-gradient(to right top, #290429, #461a5f, #402c72, #48348f, #134f9e);
+    padding: 0.75rem 1rem;
 }
-
 
 /* *****************************
 *                              *
 *    Clases para el carrito    *
 *                              *
 ***************************** */
-
 
 .cart-sidebar {
     position: fixed;
@@ -139,4 +138,30 @@ main {
     box-shadow: -2px 0 5px rgba(0, 0, 0, 0.3);
     z-index: 1050;
     overflow-y: auto;
+}
+
+.btn-cantidad {
+    background-color: #f8f8f8;
+    color: #333;
+    width: 36px;
+    height: 36px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 18px;
+    line-height: 1;
+    padding: 0;
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.btn-cantidad:hover {
+    background-color: #e6e6e6;
+    border-color: #bbb;
+    transform: scale(1.05);
+}
+
+.cantidad {
+    display: inline-block;
+    width: 28px; /* ajustá según el tamaño que necesites */
+    min-width: 28px;
 }

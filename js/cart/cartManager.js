@@ -13,13 +13,13 @@
  * @returns {Array} Carrito actualizado.
  */
 export function addToCart(cart, product) {
-  const index = cart.findIndex(item => item.id === product.id);
-  if (index !== -1) {
-    cart[index].cantidad += 1;
-  } else {
-    cart.push({ ...product, cantidad: 1 });
-  }
-  return cart;
+    const index = cart.findIndex((item) => item.id === product.id);
+    if (index !== -1) {
+        cart[index].cantidad += 1;
+    } else {
+        cart.push({ ...product, cantidad: 1 });
+    }
+    return cart;
 }
 
 /**
@@ -29,7 +29,7 @@ export function addToCart(cart, product) {
  * @returns {Array} Carrito actualizado.
  */
 export function removeFromCart(cart, id) {
-  return cart.filter(item => item.id !== id);
+    return cart.filter((item) => item.id !== id);
 }
 
 /**
@@ -40,7 +40,5 @@ export function removeFromCart(cart, id) {
  * @returns {Array} Carrito actualizado.
  */
 export function updateQuantity(cart, id, cantidad) {
-  return cart.map(item =>
-    item.id === id ? { ...item, cantidad } : item
-  );
+    return cart.map((item) => (item.id === id ? { ...item, cantidad } : item));
 }

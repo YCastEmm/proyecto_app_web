@@ -19,79 +19,63 @@
 // exportar la funcion showCartSidebar(cartItems), que se encarga de armar el HTML y mostrarlo
 // si pinta, tambien pueden tener funciones como updateCartSidebar() o closeCartSidebar() para modularizar mas
 
+import { removeFromCart, updateQuantity } from "../cart/cartManager.js";
+import { createCartItem } from "../components/CartItem.js";
 
-// ! ARRAY DE PRUEBA PARA ARMAR EL CARRITO
-const cart = [
-    {
-        id: 1,
-        title: "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
-        price: 109.95,
-        description: "Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday",
-        category: "men's clothing",
-        image: "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
-        rating: {
-            rate: 3.9,
-            count: 120,
-        },
-    },
-    {
-        id: 2,
-        title: "Mens Casual Premium Slim Fit T-Shirts ",
-        price: 22.3,
-        description: "Slim-fitting style, contrast raglan long sleeve, three-button henley placket, light weight & soft fabric for breathable and comfortable wearing. And Solid stitched shirts with round neck made for durability and a great fit for casual fashion wear and diehard baseball fans. The Henley style round neckline includes a three-button placket.",
-        category: "men's clothing",
-        image: "https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg",
-        rating: {
-            rate: 4.1,
-            count: 259,
-        },
-    },
-    {
-        id: 3,
-        title: "Mens Cotton Jacket",
-        price: 55.99,
-        description: "great outerwear jackets for Spring/Autumn/Winter, suitable for many occasions, such as working, hiking, camping, mountain/rock climbing, cycling, traveling or other outdoors. Good gift choice for you or your family member. A warm hearted love to Father, husband or son in this thanksgiving or Christmas Day.",
-        category: "men's clothing",
-        image: "https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_.jpg",
-        rating: {
-            rate: 4.7,
-            count: 500,
-        },
-    },
-];
+const totalPriceElement = document.getElementById("precio-total");
+let totalPrice = 0;
 
-// Retorna el html de cada item del carrito
-const createCartCard = (cartItem) => {
-    return `
-                <div class="card text-center mb-3" style="width: 18rem">
-                    <img src="${cartItem.image}" class="card-img-top img-thumbnail card-image" alt="" />
-                    <div class="card-body d-flex flex-column justify-content-between">
-                        <h5 class="card-title">${cartItem.title}</h5>
-                        <p class="mb-1">Precio unitario: $${cartItem.price}</p>
-                        <div class="d-flex justify-content-center align-items-center gap-2 my-2">
-                            <button class="btn btn-primary card-btn">-</button>
-                            <span class="fw-bold">${cartItem.quantity}</span>
-                            <button class="btn btn-primary card-btn">+</button>
-                        </div>
-                        <p class="mt-2">Total: $${(cartItem.price * cartItem.quantity).toFixed(2)}</p>
-                    </div>
-                </div>
-            `
-} 
+// muestra el
+export const renderCartItems = (cartArray) => {
+    const cartContainer = document.getElementById("cart-items");
+    let cartHtml = ``;
 
-
-
-
-export const showCartSidebar = (cartArray) => {
-    
-    const cartContainer = document.getElementById("cartContainer")
-
-    let cartHtml = ``
-
-    cart.forEach(producto => { // TODO: Reemplazar cart por cartArray cuando esté temriando
-        const htmlProducto = createCartCard(producto)
-        cartHtml += htmlProducto
+    cartArray.forEach((producto) => {
+        // TODO: Reemplazar cart por cartArray cuando esté temriando
+        const htmlProducto = createCartItem(producto);
+        cartHtml += htmlProducto;
     });
 
-    cartContainer && (cartContainer.innerHTML = cartHtml)
-}
+    cartContainer && (cartContainer.innerHTML = cartHtml);
+
+    // listener para restar un producto al carrito
+    document.querySelectorAll(".btn-restar").forEach((btn) => {
+        btn.addEventListener("click", (event) => {
+            const id = Number(event.target.dataset.id);
+            const producto = cartArray.find((product) => product.id === id);
+            const nuevoCart = updateQuantity(cartArray, id, producto.cantidad - 1);
+            totalPrice += producto.price;
+            updateCartSidebar(nuevoCart); // función que re-renderiza el carrito
+        });
+    });
+
+    // listener para sumar un producto al carrito
+    document.querySelectorAll(".btn-sumar").forEach((btn) => {
+        btn.addEventListener("click", (event) => {
+            const id = Number(event.target.dataset.id);
+            const producto = cartArray.find((product) => product.id === id);
+            const nuevoCart = updateQuantity(cartArray, id, producto.cantidad + 1);
+            totalPrice += producto.price;
+            updateCartSidebar(nuevoCart); // función que re-renderiza el carrito
+        });
+    });
+
+
+    // listener para eliminar los productos del carrito
+    document.querySelectorAll(".btn-eliminar").forEach((btn) => {
+        btn.addEventListener("click", (event) => {
+            const id = Number(event.currentTarget.dataset.id);
+            const producto = cartArray.find((product) => product.id === id);
+            const nuevoCart = removeFromCart(cartArray, id);
+            totalPrice -= producto.price * producto.cantidad;
+            updateCartSidebar(nuevoCart);
+        });
+    });
+};
+
+export const updateCartSidebar = (carrito) => {
+    console.log(carrito);
+
+    totalPriceElement.innerText = `$${totalPrice.toFixed(2)}`;
+    renderCartItems(carrito);
+};

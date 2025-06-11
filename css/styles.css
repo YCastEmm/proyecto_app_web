@@ -84,3 +84,59 @@ main {
 .cart-btn i {
     font-size: 1.2rem;
 }
+
+
+/* ***************************
+*                            *
+*    Clases para las card    *
+*                            *
+*************************** */
+
+
+.card {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border: 1px solid #ececec;
+}
+
+.card-image {
+    height: 150px;
+    width: auto;
+    object-fit: contain;
+    display: block;
+    margin: auto;
+    border: none;
+}
+
+.card-title {
+    font-size: 16px;
+}
+
+.card-btn { 
+    background-image: linear-gradient(to right top, #0f010f, #2f1041, #30205a, #273070, #0c4186);    padding: 0.75rem 1rem;
+    border: none;
+}
+
+.card-btn:hover {
+    background-image: linear-gradient(to right top, #290429, #461a5f, #402c72, #48348f, #134f9e);    padding: 0.75rem 1rem;
+}
+
+
+/* *****************************
+*                              *
+*    Clases para el carrito    *
+*                              *
+***************************** */
+
+
+.cart-sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 300px;
+    background-color: #212529; /* Bootstrap dark */
+    color: white;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.3);
+    z-index: 1050;
+    overflow-y: auto;
+}

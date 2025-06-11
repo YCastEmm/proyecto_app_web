@@ -8,3 +8,24 @@
 //   - apertura y cierre del carrito
 //   - clic en los botones ver mas para abrir el modal
 // - coordina el uso del carrito: agrega productos, actualiza cantidades, guarda en localstorage y actualiza el sidebar
+
+
+import { showCartSidebar } from "./components/CartSidebar.js"
+import { fetchProducts } from "./data/fetchProducts.js"
+import { renderProducts } from "./utils/render.js"
+
+const cartBtn = document.getElementById("cartToggleBtn")
+const sidebar = document.getElementById("sidebar")
+const containerId = "productList"
+
+cartBtn.addEventListener("click", () => {
+    sidebar.toggleAttribute("hidden")
+    showCartSidebar()
+})
+
+const products = await fetchProducts("https://fakestoreapi.com/products")
+console.log(products);
+
+
+renderProducts(products, containerId)
+

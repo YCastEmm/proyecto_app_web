@@ -2,12 +2,17 @@
 // Debe tener boton para cerrar y otro para agregar al carrito
 // tiene que exportar showProductModal(product)
 
-import { addToCart } from "../cart/cartManager.js"
-import { getCartFromLS, saveCartToLS } from "../cart/localStorageHandler.js"
+import { addToCart } from "../cart/cartManager.js";
+import { getCartFromLS, saveCartToLS } from "../cart/localStorageHandler.js";
+
 
 const showProductModal = (producto) => {
-    console.log(producto);
-    
+    //Descargar el carrito.
+    const cartLS = getCartFromLS()
+    const [ prodCart ] = cartLS.filter(el => el.id === producto.id)
+    console.log(prodCart)
+    console.log(cartLS)
+
   const footer = document.querySelector("footer");
   const div = document.createElement("div");
   div.id = "detalleProducto";
@@ -22,7 +27,7 @@ const showProductModal = (producto) => {
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body row">
-            <img src="${producto.image}" class="img-thumbnail col" alt="${producto.title}">
+            <img src="${producto.image}" class="img-thumbnail col-4 ms-4" alt="${producto.title}">
             <div class="col">
                 <div class="row row-cols-2">
                     <h5 class="col">Precio</h5>
@@ -37,24 +42,31 @@ const showProductModal = (producto) => {
             </div>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" id="btn-add-carrito">Agregar al carrito</button>
+
         </div>
         </div>
     </div>
     `;
   footer.insertAdjacentElement("afterend", div);
 
+    //Si en el carrito no se encuentra el producto, el boton de restar desaparece, la cantidad se muestra en 0 y el boton de sumar se muestra.
+    if (condition) {
+        let modalFooter = document.querySelector(".modal-footer");
+        const div = document.createElement("div")
+    }
+    //Si el carrito ya tiene al menos una unidad del producto, se muestra restar, cantidad y sumar
+    
+    //Si el stock del producto es menor que la cantidad, fuerza cantidad = stock y debería mostrar un mensaje
 
-    document.getElementById("btn-add-carrito").addEventListener("click", () => {
-        const cartActual = getCartFromLS()
-        const carritoActualizado = addToCart(cartActual, producto)
-        saveCartToLS(carritoActualizado)
-    })
+  document.getElementById("btn-add-carrito").addEventListener("click", () => {
+    const carritoActualizado = addToCart(cartLS, producto);
+    saveCartToLS(carritoActualizado);
+  });
 
-  const myModal = new bootstrap.Modal(document.getElementById("detalleProducto"));
+  const myModal = new bootstrap.Modal(
+    document.getElementById("detalleProducto")
+  );
   myModal.show();
-
 };
 
 export default showProductModal;

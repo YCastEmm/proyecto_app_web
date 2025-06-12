@@ -2,7 +2,26 @@
 // se exporta la funcion fetchProducts que devuelve una promesa con un array de productos
 // se usa en main.js para cargar y renderizar los productos al iniciar la app
 
-export const fetchProducts = async (endpoint) => {
-  const response = await fetch(endpoint)
-  return response.json()
+const fetchProducts = async (endpoint) => {
+  try {
+    if (endpoint == null || endpoint == "") {
+      throw new Error('Debe indicar un endpoint en la petición')
+    } else {
+
+      let response = await fetch(endpoint)
+
+      if (200 <= response.status < 300 ) {
+        console.dir(`Estado: ${response.status}`)
+        return await response.json()
+      } else {
+        throw new Error(`Error fP.L17. estado de respuesta: ${response.status}`);
+      }
+    }  
+
+  } catch (error) {
+    console.error(error.message)
+    return error
+  }
 };
+
+export default fetchProducts;

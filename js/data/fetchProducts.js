@@ -20,7 +20,7 @@ const fetchProducts = async (endpoint) => {
 
   } catch (error) {
     console.error(error.message)
-    return error
+    return [] // devuelvo un array vacio para no romper el index si falla la api
   }
 };
 

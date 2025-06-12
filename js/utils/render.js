@@ -4,6 +4,9 @@
 // antes de renderizar limpia el contenido del contenedor
 
 import { createProductCard } from "../components/ProductCard.js";
+import showProductModal from "../components/ProductModal.js";
+
+
 
 export function renderProducts(arrayProducts, containerId){
     
@@ -17,5 +20,14 @@ export function renderProducts(arrayProducts, containerId){
     } else {
         console.error("no se pudieron cargar los productos")
     }
+
+    document.querySelectorAll(".btn-vermas").forEach((btn) => {
+        btn.addEventListener("click", (event) => {
+            const id = Number(event.target.dataset.id);
+            const producto = arrayProducts.find((product) => product.id === id);
+            showProductModal(producto); 
+        });
+    });
+
 }
 

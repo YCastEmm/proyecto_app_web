@@ -11,7 +11,6 @@ const fetchProducts = async (endpoint) => {
       let response = await fetch(endpoint)
 
       if (200 <= response.status < 300 ) {
-        console.dir(`Estado: ${response.status}`)
         return await response.json()
       } else {
         throw new Error(`Error fP.L17. estado de respuesta: ${response.status}`);

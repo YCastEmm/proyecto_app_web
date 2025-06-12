@@ -3,7 +3,9 @@
 // por cada producto genera la card y la inserta en el dom
 // antes de renderizar limpia el contenido del contenedor
 
-function renderProducts(arrayProducts, containerId){
+import { createProductCard } from "../components/ProductCard.js";
+
+export function renderProducts(arrayProducts, containerId){
     
     const container = document.getElementById(containerId)
     

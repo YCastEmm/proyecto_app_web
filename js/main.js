@@ -12,7 +12,8 @@
 import { renderCartItems } from "./components/CartSidebar.js";
 import fetchProducts from "./data/fetchProducts.js";
 import { renderProducts } from "./utils/render.js";
-import { getCartFromLS } from "./cart/localStorageHandler.js"
+import { getCartFromLS } from "./cart/localStorageHandler.js";
+import { setupSearch } from "./utils/searchHandler.js"
 
 
 const products = await fetchProducts("https://fakestoreapi.com/products");
@@ -22,7 +23,7 @@ const cartSidebar = document.getElementById("cart-sidebar");
 const containerId = "productList";
 
 
-// TODO: Falta implemetar la lógica de búsqueda
+setupSearch(products, "searchInput", renderProducts, containerId);
 
 
 cartBtn.addEventListener("click", () => {

@@ -172,3 +172,19 @@ main {
     width: 28px; /* ajustá según el tamaño que necesites */
     min-width: 28px;
 }
+
+
+/* *****************************
+*                              *
+*    Clases para el modal    *
+*                              *
+***************************** */
+
+/* @media (max-width: 575px) {
+    .modal-body {
+        padding: 8%;
+    }
+    .modal-dialog {
+        margin: 10%;
+    }
+} */

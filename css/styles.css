@@ -44,6 +44,10 @@ main {
     .titulo {
         display: none;
     }
+    /*banner: para que quede por debajo del navbar*/
+    .w-100{
+        margin-top: 2em;
+    }
 }
 
 /* input de búsqueda */
@@ -171,4 +175,21 @@ main {
     display: inline-block;
     width: 28px; /* ajustá según el tamaño que necesites */
     min-width: 28px;
+}
+
+
+/* *****************************
+*                              *
+*    Clases para el modal    *
+*                              *
+***************************** */
+
+@media (max-width: 575px) {
+    
+
+    .modal {
+        --bs-modal-margin: 4rem;
+        
+    }
+
 }

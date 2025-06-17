@@ -2,11 +2,7 @@
 // Debe tener boton para cerrar y otro para agregar al carrito
 // tiene que exportar showProductModal(product)
 
-import {
-  addToCart,
-  updateQuantity,
-  removeFromCart,
-} from "../cart/cartManager.js";
+import {addToCart, updateQuantity, removeFromCart} from "../cart/cartManager.js";
 import { getCartFromLS, saveCartToLS } from "../cart/localStorageHandler.js";
 
 const showProductModal = (product) => {
@@ -17,8 +13,8 @@ const showProductModal = (product) => {
 
   // Función auxiliar para crear filas de detalles
   const createDetailRow = (label, value) => `
-    <p class="col">${label}</p>
-    <p class="col">${value}</p>
+    <p class="col flex-fill">${label}</p>
+    <p class="col flex-fill">${value}</p>
   `;
 
   const footer = document.querySelector("footer");
@@ -29,32 +25,29 @@ const showProductModal = (product) => {
   div.classList = "modal fade";
   div.tabIndex = -1;
   div.innerHTML = `
-    <div class="modal-dialog">
+  
+    <div class="modal-dialog container-fluid">
       <div class="modal-content">
-      <div class="modal-header">
+        <div class="modal-header">
           <h5 class="modal-title">${product.title}</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body row">
-        <img src="${product.image}" class="img-thumbnail col-4 ms-4" alt="${
-    product.title
-  }">
-        <div class="col">
-          <div class="row row-cols-2">
-              ${createDetailRow("Precio", `USD ${product.price}`)}
+        </div>
+        <div class="modal-body d-flex flex-row justify-content-around align-items-center">
+          <img src="${product.image}" class="rounded mx-2 col-4" alt="${product.title}">
+          <div class="col-7">
+            <div class="row row-cols-2 ms-3">
+              ${createDetailRow("Precio", `US$ ${product.price}`)}
               ${createDetailRow("Categoría", product.category)}
               ${createDetailRow("Puntaje", product.rating.rate)}
               ${createDetailRow("Stock", product.rating.count)}
+            </div>
           </div>
         </div>
-      </div>
         <div class="modal-footer d-flex flex-row justify-content-around align-items-center">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Salir</button>
           <div class="d-flex align-items-center mt-2">
             <button class="btn btn-cantidad" id="restar">-</button>
-            <span id="spanCantidad" class="cantidad fw-bold text-center mx-2">${
-              product.cantidad
-            }</span>
+            <span id="spanCantidad" class="cantidad fw-bold text-center mx-2">${product.cantidad}</span>
             <button class="btn btn-cantidad" id="sumar">+</button>
           </div>
         </div>

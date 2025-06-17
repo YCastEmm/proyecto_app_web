@@ -1,21 +1,26 @@
-// Esta funcion muestra el modal con los detalles de un producto
+// Esta funcion muestra el modal con los detalles de un product
 // Debe tener boton para cerrar y otro para agregar al carrito
 // tiene que exportar showProductModal(product)
 
-import { addToCart, updateQuantity } from "../cart/cartManager.js";
+import { addToCart, updateQuantity, removeFromCart } from "../cart/cartManager.js";
 import { getCartFromLS, saveCartToLS } from "../cart/localStorageHandler.js";
 
-const showProductModal = (producto) => {
+const showProductModal = (product) => {
   //Descargar el carrito.
   const cartLS = getCartFromLS();
-  const [prodCart] = cartLS.filter((el) => el.id === producto.id);
-  // console.log(prodCart);
-  // console.log(cartLS);
+  //si existe en el carrito, se le agrega la cantidad correspondiente
+  product.cantidad = cartLS.find(item => item.id === product.id)?.cantidad || 0;
+
+  // Función auxiliar para crear filas de detalles
+  const createDetailRow = (label, value) => `
+    <p class="col">${label}</p>
+    <p class="col">${value}</p>
+  `;
 
   const footer = document.querySelector("footer");
 
   const div = document.createElement("div");
-  div.id = "detalleProducto";
+  div.id = "detalleProduct";
   div.classList = "modal fade";
   div.tabIndex = -1;
 
@@ -23,56 +28,85 @@ const showProductModal = (producto) => {
     <div class="modal-dialog">
       <div class="modal-content">
       <div class="modal-header">
-          <h5 class="modal-title">${producto.title}</h5>
+          <h5 class="modal-title">${product.title}</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body row">
-        <img src="${producto.image}" class="img-thumbnail col-4 ms-4" alt="${producto.title}">
+        <img src="${product.image}" class="img-thumbnail col-4 ms-4" alt="${product.title}">
         <div class="col">
           <div class="row row-cols-2">
-            <h5 class="col">Precio</h5>
-            <h5 class="col">USD ${producto.price}</h5>
-            <p class="col">Categoría</p>
-            <p class="col">${producto.category}</p>
-            <p class="col">Puntaje</p>
-            <p class="col">${producto.rating.rate}</p>
-            <p class="col">Stock</p>
-            <p class="col">${producto.rating.count}</p>
+              ${createDetailRow('Precio', `USD ${product.price}`)}
+              ${createDetailRow('Categoría', product.category)}
+              ${createDetailRow('Puntaje', product.rating.rate)}
+              ${createDetailRow('Stock', product.rating.count)}
           </div>
         </div>
       </div>
-      <div class="modal-footer d-flex flex-row justify-content-around align-items-center" id="modal-footer">
-      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <div class="d-flex align-items-center mt-2">
-          <button class="btn btn-cantidad btn-restar" data-id="${producto.id}">-</button>
-          <span class="cantidad fw-bold text-center mx-2">${prodCart? prodCart.cantidad : 0 }</span>
-          <button class="btn btn-cantidad btn-sumar" data-id="${producto.id}">+</button>
+        <div class="modal-footer d-flex flex-row justify-content-around align-items-center">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Salir</button>
+          <div class="d-flex align-items-center mt-2">
+            <button class="btn btn-cantidad d-none" id="restar">-</button>
+            <span id="spanCantidad" class="cantidad fw-bold text-center mx-2">${product.cantidad}</span>
+            <button class="btn btn-cantidad" id="sumar">+</button>
+          </div>
         </div>
-      </div>
       </div>
     </div>
     `;
 
-    footer.insertAdjacentElement("afterend", div);
+  footer.insertAdjacentElement("afterend", div);
 
-  //Si en el carrito no se encuentra el producto, el boton de restar desaparece, la cantidad se muestra en 0 y el boton de sumar se muestra.
-  if (true) {
-    let modalFooter = document.querySelector("#modal-footer");
-    const div = document.createElement("div");
-    div.classList = "d-flex align-items-center mt-2"
+  const restar = document.querySelector("#restar")
+  const sumar = document.querySelector("#sumar")
+
+  if (restar) {
+    restar.addEventListener("click", () => {
+    let cartUpdated;
+      if (product.cantidad > 1) {
+        product.cantidad -= 1
+        cartUpdated = updateQuantity(cartLS,product.id,product.cantidad)
+
+      }else{
+        product.cantidad = 0
+        cartUpdated = removeFromCart(cartLS,product.id)
+        restar.classList.add("d-none");
+      }
+
+      saveCartToLS(cartUpdated);
+      document.querySelector("#spanCantidad").innerHTML = product.cantidad
+
+    });
   }
-  //Si el carrito ya tiene al menos una unidad del producto, se muestra restar, cantidad y sumar
 
-  //Si el stock del producto es menor que la cantidad, fuerza cantidad = stock y debería mostrar un mensaje
-  document.querySelector(".btn-sumar").addEventListener("click", () => {
-    const carritoActualizado = addToCart(cartLS, producto);
-    saveCartToLS(carritoActualizado);
-  });
+  if (sumar) {
+    sumar.addEventListener("click", () => {
+    let cartUpdated;
+    product.cantidad += 1
+      if (product.cantidad == 1 ) {
+        cartUpdated = addToCart(cartLS, product)
+        restar.classList.remove("d-none");
+
+      } else if (product.cantidad > 0 && product.cantidad <= product.rating.count) {
+        cartUpdated = updateQuantity(cartLS,product.id,product.cantidad)
+      } else if (product.cantidad > product.rating.count) {
+        product.cantidad = product.rating.count
+        cartUpdated = updateQuantity(cartLS,product.id,product.cantidad)
+        console.log("stock maximo alcanzado")
+      } else {
+        product.cantidad = 0
+        cartUpdated = removeFromCart(cartLS,product.id)
+      }
+
+      saveCartToLS(cartUpdated);
+      document.querySelector("#spanCantidad").innerHTML = product.cantidad;
+    });
+  }
 
   const myModal = new bootstrap.Modal(
-    document.getElementById("detalleProducto")
+    document.getElementById("detalleProduct")
   );
   myModal.show();
+
 };
 
 export default showProductModal;

@@ -178,18 +178,3 @@ main {
 }
 
 
-/* *****************************
-*                              *
-*    Clases para el modal    *
-*                              *
-***************************** */
-
-@media (max-width: 575px) {
-    
-
-    .modal {
-        --bs-modal-margin: 4rem;
-        
-    }
-
-}

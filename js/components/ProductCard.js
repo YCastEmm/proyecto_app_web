@@ -1,9 +1,4 @@
-// este componente recibe un objeto producto y devuelve un string html con la card armada
-// se usa en render.js para generar el contenido de cada producto
-// se exporta la funcion createProductCard que toma un objeto producto como parametro
-
-
-
+// crea una card de producto
 export function createProductCard(producto){
     return `<div class="card text-center" style="width: 18rem;">
                 <img src="${producto.image}" class="card-img-top img-thumbnail card-image" alt="">

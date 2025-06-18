@@ -27,8 +27,8 @@ setupSearch(products, "searchInput", renderProducts, containerId);
 
 
 cartBtn.addEventListener("click", () => {
-    cartSidebar.toggleAttribute("hidden");
     const cartActual = getCartFromLS();
+    cartSidebar.toggleAttribute("hidden");
     renderCartItems(cartActual);
 });
 

@@ -18,7 +18,7 @@ export function renderProducts(arrayProducts, containerId){
             container.innerHTML += createProductCard(producto)            
         });
     } else {
-        console.error("no se pudieron cargar los productos")
+        container.innerHTML= '<h2 class="text-center mt-5 text-body-tertiary">No se encontraron productos</h2>'
     }
 
     document.querySelectorAll(".btn-vermas").forEach((btn) => {

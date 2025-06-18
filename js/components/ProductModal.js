@@ -4,6 +4,7 @@
 
 import {addToCart, updateQuantity, removeFromCart} from "../cart/cartManager.js";
 import { getCartFromLS, saveCartToLS } from "../cart/localStorageHandler.js";
+import { renderCartItems } from "./CartSidebar.js";
 
 const showProductModal = (product) => {
   //Descargar el carrito.
@@ -68,6 +69,7 @@ const showProductModal = (product) => {
   const endListener = (newCart) => {
     saveCartToLS(newCart);
     document.querySelector("#spanCantidad").innerHTML = product.cantidad;
+    renderCartItems(newCart)
   }
 
 

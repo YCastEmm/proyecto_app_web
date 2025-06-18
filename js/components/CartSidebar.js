@@ -3,13 +3,16 @@ import { createCartItem } from "../components/CartItem.js";
 import { saveCartToLS } from "../cart/localStorageHandler.js"
 
 const totalPriceElement = document.getElementById("precio-total");
-const totalContainer = document.getElementById("cartTotalContainer");
 const checkoutBtn = document.getElementById("checkoutBtn");
 
 
 
 export const renderCartItems = (cartArray) => {
     const cartContainer = document.getElementById("cart-items");
+    const totalContainer = document.getElementById("cartTotalContainer");
+    const totalPriceElement = document.getElementById("precio-total");
+
+    
     let cartHtml = ``;
     
     if (cartArray.length === 0) {
@@ -22,6 +25,17 @@ export const renderCartItems = (cartArray) => {
         });
     }
     
+
+    // Mostrar u ocultar Total + Botón de Finalizar
+    if (cartArray.length === 0) {
+        totalContainer.setAttribute("hidden", true);
+    } else {
+        totalContainer.removeAttribute("hidden");
+        const totalPrice = cartArray.reduce((acc, item) => acc + item.price * item.cantidad, 0);
+        totalPriceElement.innerText = `$${totalPrice.toFixed(2)}`;
+    }
+
+
     cartContainer.innerHTML = cartHtml
 
     // listener para sumar un producto al carrito
@@ -71,13 +85,5 @@ export const renderCartItems = (cartArray) => {
 export const updateCartSidebar = (carrito) => {
     const totalPrice = carrito.reduce((acc, item) => acc + item.price * item.cantidad, 0);
     totalPriceElement.innerText = `$${totalPrice.toFixed(2)}`; 
-
-    // ✅ Mostrar u ocultar Total + Botón de Finalizar
-    if (carrito.length === 0) {
-        totalContainer.setAttribute("hidden", true);
-    } else {
-        totalContainer.removeAttribute("hidden");
-    }
-
     renderCartItems(carrito);
 };

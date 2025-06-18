@@ -12,7 +12,7 @@
 import { renderCartItems } from "./components/CartSidebar.js";
 import fetchProducts from "./data/fetchProducts.js";
 import { renderProducts } from "./utils/render.js";
-import { getCartFromLS } from "./cart/localStorageHandler.js";
+import { getCartFromLS, deleteCartFromLS } from "./cart/localStorageHandler.js";
 import { setupSearch } from "./utils/searchHandler.js"
 
 
@@ -21,19 +21,27 @@ const cartBtn = document.getElementById("cartToggleBtn");
 const closeBtn = document.getElementById("btn-close");
 const cartSidebar = document.getElementById("cart-sidebar");
 const containerId = "productList";
+const checkoutBtn = document.getElementById("checkoutBtn");
 
 
 setupSearch(products, "searchInput", renderProducts, containerId);
 
-
+// listener de boton del carrito
 cartBtn.addEventListener("click", () => {
     const cartActual = getCartFromLS();
     cartSidebar.toggleAttribute("hidden");
     renderCartItems(cartActual);
 });
 
+// listener para cerrar el carrito
 closeBtn.addEventListener("click", () => {
     cartSidebar.toggleAttribute("hidden");
+});
+
+// listener de finalizar compra
+checkoutBtn.addEventListener("click", () => {
+    deleteCartFromLS()
+    window.location.href = "/checkout.html" 
 });
 
 

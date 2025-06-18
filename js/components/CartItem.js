@@ -3,7 +3,7 @@ export const createCartItem = (cartItem) => {
     return `
                 <div class="d-flex justify-content-between align-items-start mb-4">
                     <div>
-                        <div class="fw-semibold">${cartItem.title}</div>
+                        <div class="cartItemTitle">${cartItem.title}</div>
                         <div class="d-flex align-items-center mt-2">
                             <button class="btn btn-cantidad btn-restar" data-id="${cartItem.id}">-</button>
                             <span class="cantidad fw-bold text-center mx-2">${cartItem.cantidad}</span>

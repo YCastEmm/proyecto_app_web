@@ -1,15 +1,20 @@
 html,
 body {
     height: 100%;
-}
-body {
     display: flex;
     flex-direction: column;
     font-family: "Poppins", sans-serif;
 }
+
 main {
     flex: 1;
 }
+
+/*****************************
+*                            *
+*    Clases para el navbar   *
+*                            *
+******************************/
 
 /* navbar general */
 .custom-navbar {
@@ -21,6 +26,7 @@ main {
 /* contenedor interno */
 .container-navbar {
     max-width: 1200px;
+    width: 100%;
     margin: 0 auto;
     display: flex;
     align-items: center;
@@ -37,23 +43,33 @@ main {
     margin-right: 20px;
     margin-left: 20px;
     font-size: 1.5rem;
+    white-space: nowrap;
 }
 
-/* ocultar el logo en mobile */
+/* ocultar el titulo en mobile */
+@media (max-width: 767px) {
+    .titulo {
+    font-size: 1.2rem;
+    margin-right: 12px;
+    margin-left: 12px;
+    }
+    .logo {
+    max-height: 44px;
+    }
+}
+
+/* ocultar el titulo en mobile */
 @media (max-width: 575px) {
     .titulo {
         display: none;
-    }
-    /*banner: para que quede por debajo del navbar*/
-    .w-100{
-        margin-top: 2em;
     }
 }
 
 /* input de búsqueda */
 .search-input {
-    flex: 1;
-    padding: 0.5rem 0.75rem;
+    flex: 1 1 auto;
+    min-width: 0;
+    padding: 0.6rem 0.75rem;
     border: none;
     border-radius: 4px;
     font-size: 1rem;
@@ -62,7 +78,8 @@ main {
 @media (max-width: 575px) {
     .search-input {
         font-size: 0.9rem;
-        padding: 0.4rem 0.6rem;
+        padding: 0.6rem 0.6rem;
+        ;
     }
 }
 
@@ -71,7 +88,7 @@ main {
     background-color: white;
     color: #111;
     border: none;
-    padding: 0.5rem;
+    padding: 0;
     border-radius: 4px;
     width: 44px;
     height: 44px;
@@ -79,6 +96,9 @@ main {
     align-items: center;
     justify-content: center;
     transition: background 0.2s;
+    min-width: 44px;
+    min-height: 44px;
+    flex-shrink: 0;
 }
 
 .cart-btn:hover {
@@ -90,11 +110,11 @@ main {
     font-size: 1.2rem;
 }
 
-/*Lista de productos centrado*/
-.row {
-        justify-content: center;
-    }
-
+/* Banner */
+.banner {
+    width: 100%;
+    padding-top: 68px;
+}
 
 
 /* ***************************
@@ -144,11 +164,19 @@ main {
     right: 0;
     height: 100vh;
     width: 300px;
-    background-color: #212529; /* Bootstrap dark */
+    background-color: #212529;
     color: white;
     box-shadow: -2px 0 5px rgba(0, 0, 0, 0.3);
     z-index: 1050;
     overflow-y: auto;
+}
+
+.cartItemTitle{
+    max-width: 220px;
+    color: #3f3f3f;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .btn-cantidad {
@@ -173,8 +201,11 @@ main {
 
 .cantidad {
     display: inline-block;
-    width: 28px; /* ajustá según el tamaño que necesites */
+    width: 28px;
     min-width: 28px;
+    color: #3f3f3f;
 }
+
+
 
 

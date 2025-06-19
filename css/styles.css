@@ -251,3 +251,11 @@ main {
     border: solid 10px #4c2a8b;
 }
     
+/* ***************************
+*                            *
+*    Clases para el Modal    *
+*                            *
+*****************************/
+.modal-dialog {
+    min-width: 340px;
+}

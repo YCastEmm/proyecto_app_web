@@ -206,6 +206,14 @@ main {
     color: #3f3f3f;
 }
 
+.btn-hover-effect {
+  transition: filter 0.3s ease;
+}
+
+.btn-hover-effect:hover {
+  filter: brightness(1.2);
+}
+
 
 
 /* *****************************************

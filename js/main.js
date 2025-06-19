@@ -41,7 +41,7 @@ closeBtn.addEventListener("click", () => {
 // listener de finalizar compra
 checkoutBtn.addEventListener("click", () => {
     deleteCartFromLS()
-    window.location.href = "/checkout.html" 
+    window.location.href = "./checkout.html" 
 });
 
 

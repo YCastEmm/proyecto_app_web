@@ -126,6 +126,8 @@ main {
 .card {
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     border: 1px solid #ececec;
+    font-size: 14px;
+    color: #424344;
 }
 
 .card-image {
@@ -133,24 +135,34 @@ main {
     width: auto;
     object-fit: contain;
     display: block;
-    margin: auto;
+    margin: 15px auto;
     border: none;
 }
 
 .card-title {
     font-size: 16px;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 250px;
+    text-overflow: ellipsis;
+}
+
+.price {
+    margin-bottom: 20px;
+    font-weight: bold;
 }
 
 .card-btn {
-    background-image: linear-gradient(to right top, #0f010f, #2f1041, #30205a, #273070, #0c4186);
-    padding: 0.75rem 1rem;
+    background-image: linear-gradient(to right top, #4d094d, #5f2381, #3d2970, #2e3881, #104b97);
+    padding: 0.5rem 1rem;
     border: none;
+    text-decoration: none;
+    color: white;
+    border-radius: 8px;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
 
-.card-btn:hover {
-    background-image: linear-gradient(to right top, #290429, #461a5f, #402c72, #48348f, #134f9e);
-    padding: 0.75rem 1rem;
-}
+
 
 /* *****************************
 *                              *
@@ -163,9 +175,8 @@ main {
     top: 0;
     right: 0;
     height: 100vh;
-    width: 300px;
+    width: 350px;
     background-color: #212529;
-    color: white;
     box-shadow: -2px 0 5px rgba(0, 0, 0, 0.3);
     z-index: 1050;
     overflow-y: auto;
@@ -206,6 +217,14 @@ main {
     color: #3f3f3f;
 }
 
+.btn-hover-effect {
+    transition: filter 0.1s ease;
+}
+
+.btn-hover-effect:hover {
+    filter: brightness(1.32);
+}
+
 
 
 /* *****************************************
@@ -219,24 +238,6 @@ main {
     align-items: center;
     justify-content: center;
 }    
-
-
-
-.back-index{
-    background-color: #4c2a8b;
-    color: white;
-    text-decoration: none;
-    height: 40px;
-    padding-bottom: 3px;
-    transition: background 0.2s;
-    padding: 8px;
-}
-
-
-.back-index:hover {
-    background-color: #744cbe;
-    color: white;
-}
 
 .order-title{
     font-size: 36px;

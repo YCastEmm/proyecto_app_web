@@ -80,16 +80,6 @@ export const renderCartItems = (cartArray) => {
             saveCartToLS(nuevoCart)
         });
     });
-    
-    // Listener para vaciar el carrito
-    const vaciarBtn = document.getElementById("vaciarCarritoBtn");
-    if (vaciarBtn) {
-        vaciarBtn.addEventListener("click", () => {
-            const carritoVacio = [];
-            updateCartSidebar(carritoVacio);
-            saveCartToLS(carritoVacio);
-        });
-    }
 };
 
 export const updateCartSidebar = (carrito) => {

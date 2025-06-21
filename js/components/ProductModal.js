@@ -6,6 +6,7 @@ import { addToCart, updateQuantity, removeFromCart } from "../cart/cartManager.j
 import { getCartFromLS, saveCartToLS } from "../cart/localStorageHandler.js";
 import { renderCartItems } from "./CartSidebar.js";
 import { createNotification } from "./Notification.js";
+import { updateBadgeCounter } from "./BadgeCounter.js";
 
 const showProductModal = (product) => {
     //Descargar el carrito.
@@ -87,6 +88,7 @@ const showProductModal = (product) => {
         }
         createNotification("Se eliminó el producto del carrito.");
         endListener(cartUpdated);
+        updateBadgeCounter()
     });
 
     //creo el listener de sumar y su logica
@@ -108,6 +110,7 @@ const showProductModal = (product) => {
         }
         createNotification("Se agregó el producto al carrito.");
         endListener(cartUpdated);
+        updateBadgeCounter()
     });
 
     const myModal = new bootstrap.Modal(document.getElementById("detalleProduct"));

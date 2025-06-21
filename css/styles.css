@@ -179,7 +179,7 @@ main {
     text-overflow: ellipsis;
 }
 
-.btn-cantidad {
+.btn-cantidad{
     background-color: #f8f8f8;
     color: #333;
     width: 36px;
@@ -258,4 +258,22 @@ main {
 *****************************/
 .modal-dialog {
     min-width: 340px;
+}
+.btn-agregar{
+    background-color: #f8f8f8;
+    color: #333;
+    height: 36px;
+    border: 1px solid #bbb;
+    border-radius: 6px;
+    font-size: 18px;
+    line-height: 1;
+    padding:  10px;
+    transition: all 0.2s ease-in-out;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 576px) {
+    .modal-dialog{
+        margin: 28px 38px 50px;
+    }
 }

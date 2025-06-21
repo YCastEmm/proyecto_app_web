@@ -14,12 +14,14 @@ const showProductModal = (product) => {
     product.cantidad = cartLS.find((item) => item.id === product.id)?.cantidad || 0;
 
     // Función auxiliar para crear filas de detalles
-    const createDetailRow = (label, value) =>   `
-                                                    <p class="col flex-fill">${label}</p>
-                                                    <p class="col flex-fill">${value}</p>
-                                                `;
+    const createDetailRow = (label, value) =>
+      ` <div class="row d-flex justify-content-between">
+          <p class="col-5">${label}</p>
+          <p class="col-7">${value}</p>
+        </div>
+      `;
 
-    const footer = document.querySelector("footer");
+    const body = document.querySelector("body");
 
     //creo el elemento div que contiene la ventana modal
     const div = document.createElement("div");
@@ -27,64 +29,83 @@ const showProductModal = (product) => {
     div.classList = "modal fade";
     div.tabIndex = -1;
     div.innerHTML = `
-                        <div class="modal-dialog container-fluid">
+                      <div class="modal-dialog">
                         <div class="modal-content">
-                            <div class="modal-header">
+                        <!-- Header -->
+                          <div class="modal-header">
                             <h5 class="modal-title">${product.title}</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body d-flex flex-row justify-content-around align-items-center">
-                            <img src="${product.image}" class="rounded mx-2 col-4" alt="${product.title}">
-                            <div class="col-7">
-                                <div class="row row-cols-2 ms-3">
+                          </div>
+
+                        <!-- body -->
+                          <div class="modal-body">
+                            <div class="row justify-content-center align-items-center">
+                              <img src="${product.image}" class="rounded mx-1 col-sm-4 col-6" alt="${product.title}">
+                              <div class="col-sm-6 col-9 mt-4">
                                 ${createDetailRow("Precio", `US$ ${product.price}`)}
                                 ${createDetailRow("Categoría", product.category)}
                                 ${createDetailRow("Puntaje", product.rating.rate)}
                                 ${createDetailRow("Stock", product.rating.count)}
-                                </div>
+                              </div>
                             </div>
-                            </div>
-                            <div class="modal-footer d-flex flex-row justify-content-around align-items-center">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Salir</button>
-                            <div class="d-flex align-items-center mt-2">
-                                <button class="btn btn-cantidad" id="restar">-</button>
-                                <span id="spanCantidad" class="cantidad fw-bold text-center mx-2">${product.cantidad}</span>
-                                <button class="btn btn-cantidad" id="sumar">+</button>
-                            </div>
-                            </div>
+                          </div>
+
+                        <!-- Footer -->
+                          <div class="modal-footer d-flex flex-row justify-content-center align-items-center">
+                              <button id="restar" class="btn btn-agregar">-</button>
+                              <span id="spanCantidad" class="cantidad fw-bold text-center mx-2">${product.cantidad}</span>
+                              <button id="sumar" class="btn btn-agregar">+</button>
+                              <button id="agregar" class="btn btn-agregar">Agregar al carrito</button>
+                          </div>
                         </div>
-                        </div>
+                      </div>
                     `;
 
-    
     //Lo inserto luego del footer
-    footer.insertAdjacentElement("afterend", div);
+    body.insertAdjacentElement("beforeend", div);
 
+    // Selecciono todos los elementos del la botonera del modal
     const restar = document.querySelector("#restar");
-    //verifico si la cantidad del producto es menor que cero
-    //en caso afirmativo, coloco la clase "d-none" al elemento
-    product.cantidad < 1 && restar.classList.add("d-none");
-
     const sumar = document.querySelector("#sumar");
+    const cantidad = document.querySelector("#spanCantidad");
+    const agregar = document.querySelector("#agregar");
+
+    //Funcion auxiliar de modificacion de modal-footer
+    const verificarBotones = () => {
+      if (product.cantidad < 1) {
+        restar.classList.add("d-none");
+        sumar.classList.add("d-none");
+        cantidad.classList.add("d-none");
+        agregar.classList.remove("d-none");
+      }else{
+        restar.classList.remove("d-none");
+        sumar.classList.remove("d-none");
+        cantidad.classList.remove("d-none");
+        agregar.classList.add("d-none");
+      }
+    }
+
+    verificarBotones()
 
     //Funcion auxiliar para guardar en LS y actualizar cantidad.
     const endListener = (newCart) => {
-        saveCartToLS(newCart);
-        document.querySelector("#spanCantidad").innerHTML = product.cantidad;
-        renderCartItems(newCart);
+      saveCartToLS(newCart);
+      cantidad.innerHTML = product.cantidad;
+      renderCartItems(newCart);
     };
 
     //creo el listener de "restar" y su logica
     restar.addEventListener("click", () => {
         let cartUpdated;
+
         if (product.cantidad > 1) {
             product.cantidad -= 1;
             cartUpdated = updateQuantity(cartLS, product.id, product.cantidad);
         } else {
             product.cantidad = 0;
             cartUpdated = removeFromCart(cartLS, product.id);
-            restar.classList.add("d-none");
         }
+        verificarBotones()
         createNotification("Se eliminó el producto del carrito.");
         endListener(cartUpdated);
     });
@@ -93,22 +114,36 @@ const showProductModal = (product) => {
     sumar.addEventListener("click", () => {
         let cartUpdated;
         product.cantidad += 1;
+        
+        if (product.cantidad > 0 && product.cantidad <= product.rating.count) {
+          cartUpdated = updateQuantity(cartLS, product.id, product.cantidad);
+        } else if (product.cantidad > product.rating.count) {
+          product.cantidad = product.rating.count;
+          cartUpdated = updateQuantity(cartLS, product.id, product.cantidad);
+          console.log("stock máximo alcanzado");
+        }
+        createNotification("Se agregó el producto al carrito.");
+        endListener(cartUpdated);
+    });
+
+    agregar.addEventListener("click", () => {
+        let cartUpdated;
+        product.cantidad += 1;
         if (product.cantidad == 1) {
             cartUpdated = addToCart(cartLS, product);
-            restar.classList.remove("d-none");
-        } else if (product.cantidad > 0 && product.cantidad <= product.rating.count) {
+
+        } else if (product.cantidad > 1 && product.cantidad <= product.rating.count) {
             cartUpdated = updateQuantity(cartLS, product.id, product.cantidad);
         } else if (product.cantidad > product.rating.count) {
             product.cantidad = product.rating.count;
             cartUpdated = updateQuantity(cartLS, product.id, product.cantidad);
             console.log("stock máximo alcanzado");
-        } else {
-            product.cantidad = 0;
-            cartUpdated = removeFromCart(cartLS, product.id);
         }
+        verificarBotones();
         createNotification("Se agregó el producto al carrito.");
         endListener(cartUpdated);
     });
+
 
     const myModal = new bootstrap.Modal(document.getElementById("detalleProduct"));
     myModal.show();

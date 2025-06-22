@@ -6,22 +6,20 @@ import { getCartFromLS } from "../cart/localStorageHandler.js";
 //               </span>`
 //   }
 
-export function updateBadgeCounter() {
+export function updateBadgeCounter(a) {
 
     let contadorTotal = 0
     const carrito = getCartFromLS()
     carrito.forEach(element => {
         contadorTotal += element.cantidad  
     })
-    
-    
-
-    if (contadorTotal < 1){
-        const removeCounter = document.getElementById("contadorTotal")
-        removeCounter.remove("contadorTotal");
+    if (carrito.length == null || contadorTotal == 0){
+        const viewCounter = document.getElementById("contadorTotal")
+        viewCounter.classList.add("visually-hidden")
     } else {
         const contadorTotalContenedor = document.getElementById("contadorTotal")
-        contadorTotalContenedor.innerHTML = contadorTotal            
+        contadorTotalContenedor.innerHTML = contadorTotal
+        contadorTotalContenedor.classList.remove("visually-hidden")       
 
     }
    

@@ -101,10 +101,6 @@ const showProductModal = (product) => {
             cartUpdated = updateQuantity(cartLS, product.id, product.cantidad);
         } else {
             product.cantidad = 0;
-            console.log("entró acá");
-            console.log(product.cantidad);
-            
-            
             cartUpdated = removeFromCart(cartLS, product.id);
         }
         verificarBotones()
@@ -122,7 +118,6 @@ const showProductModal = (product) => {
         } else if (product.cantidad > product.rating.count) {
             product.cantidad = product.rating.count;
             cartUpdated = updateQuantity(cartLS, product.id, product.cantidad);
-            console.log("stock máximo alcanzado");
             createNotification("No hay más unidades en stock.");
 
         }
@@ -141,7 +136,6 @@ const showProductModal = (product) => {
         } else if (product.cantidad > product.rating.count) {
             product.cantidad = product.rating.count;
             cartUpdated = updateQuantity(cartLS, product.id, product.cantidad);
-            console.log("stock máximo alcanzado");
             createNotification("No hay más unidades en stock.");
         }
         verificarBotones();

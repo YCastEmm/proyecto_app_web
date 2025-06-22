@@ -66,11 +66,13 @@ export const renderCartItems = (cartArray) => {
                 updateCartSidebar(carritoSinProducto);
                 saveCartToLS(carritoSinProducto)
                 
+                
             } else {
                 updateCartSidebar(nuevoCart);
                 saveCartToLS(nuevoCart)
-                updateBadgeCounter(producto)
-            }            
+                
+            }
+            updateBadgeCounter()            
         });
     });
 
@@ -82,6 +84,7 @@ export const renderCartItems = (cartArray) => {
             const nuevoCart = removeFromCart(cartArray, id);
             updateCartSidebar(nuevoCart);
             saveCartToLS(nuevoCart)
+            updateBadgeCounter(nuevoCart)
         });
     });
 };

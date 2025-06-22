@@ -14,6 +14,7 @@ import fetchProducts from "./data/fetchProducts.js";
 import { renderProducts } from "./utils/render.js";
 import { getCartFromLS, deleteCartFromLS } from "./cart/localStorageHandler.js";
 import { setupSearch } from "./utils/searchHandler.js"
+import { updateBadgeCounter } from "./components/BadgeCounter.js";
 
 
 const products = await fetchProducts("https://fakestoreapi.com/products");
@@ -49,6 +50,7 @@ checkoutBtn.addEventListener("click", () => {
 vaciarBtn.addEventListener("click", () => {
     deleteCartFromLS()
     renderCartItems([]);
+    updateBadgeCounter()
 });
 
 renderProducts(products, containerId);

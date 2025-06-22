@@ -1,6 +1,7 @@
 import { removeFromCart, updateQuantity } from "../cart/cartManager.js";
 import { createCartItem } from "../components/CartItem.js";
 import { saveCartToLS } from "../cart/localStorageHandler.js"
+import { updateBadgeCounter } from "../components/BadgeCounter.js";
 
 const totalPriceElement = document.getElementById("precio-total");
 
@@ -42,7 +43,8 @@ export const renderCartItems = (cartArray) => {
             const producto = cartArray.find((product) => product.id === id);
             const nuevoCart = updateQuantity(cartArray, id, producto.cantidad + 1);
             updateCartSidebar(nuevoCart)
-            saveCartToLS(nuevoCart); 
+            saveCartToLS(nuevoCart);
+            updateBadgeCounter()
         });
     });
     
@@ -60,10 +62,14 @@ export const renderCartItems = (cartArray) => {
                 const carritoSinProducto = removeFromCart(nuevoCart, id);
                 updateCartSidebar(carritoSinProducto);
                 saveCartToLS(carritoSinProducto)
+                
+                
             } else {
                 updateCartSidebar(nuevoCart);
                 saveCartToLS(nuevoCart)
-            }            
+                
+            }
+            updateBadgeCounter()            
         });
     });
 
@@ -75,6 +81,7 @@ export const renderCartItems = (cartArray) => {
             const nuevoCart = removeFromCart(cartArray, id);
             updateCartSidebar(nuevoCart);
             saveCartToLS(nuevoCart)
+            updateBadgeCounter(nuevoCart)
         });
     });
 };

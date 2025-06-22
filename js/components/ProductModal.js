@@ -86,9 +86,10 @@ const showProductModal = (product) => {
 
     //Funcion auxiliar para guardar en LS y actualizar cantidad.
     const endListener = (newCart) => {
-      saveCartToLS(newCart);
-      cantidad.innerHTML = product.cantidad;
-      renderCartItems(newCart);
+        saveCartToLS(newCart);
+        cantidad.innerHTML = product.cantidad;
+        renderCartItems(newCart);
+        updateBadgeCounter()
     };
 
     //creo el listener de "restar" y su logica
@@ -100,12 +101,15 @@ const showProductModal = (product) => {
             cartUpdated = updateQuantity(cartLS, product.id, product.cantidad);
         } else {
             product.cantidad = 0;
+            console.log("entró acá");
+            console.log(product.cantidad);
+            
+            
             cartUpdated = removeFromCart(cartLS, product.id);
         }
         verificarBotones()
         createNotification("Se eliminó el producto del carrito.");
         endListener(cartUpdated);
-        updateBadgeCounter(cartUpdated)
     });
 
     //creo el listener de sumar y su logica
@@ -114,11 +118,13 @@ const showProductModal = (product) => {
         product.cantidad += 1;
         
         if (product.cantidad > 0 && product.cantidad <= product.rating.count) {
-          cartUpdated = updateQuantity(cartLS, product.id, product.cantidad);
+            cartUpdated = updateQuantity(cartLS, product.id, product.cantidad);
         } else if (product.cantidad > product.rating.count) {
-          product.cantidad = product.rating.count;
-          cartUpdated = updateQuantity(cartLS, product.id, product.cantidad);
-          console.log("stock máximo alcanzado");
+            product.cantidad = product.rating.count;
+            cartUpdated = updateQuantity(cartLS, product.id, product.cantidad);
+            console.log("stock máximo alcanzado");
+            createNotification("No hay más unidades en stock.");
+
         }
         createNotification("Se agregó el producto al carrito.");
         endListener(cartUpdated);
@@ -126,21 +132,21 @@ const showProductModal = (product) => {
 
     agregar.addEventListener("click", () => {
         let cartUpdated;
+        
         product.cantidad += 1;
         if (product.cantidad == 1) {
-            cartUpdated = addToCart(cartLS, product);
-
-        } else if (product.cantidad > 1 && product.cantidad <= product.rating.count) {
+            addToCart(cartLS, product);
             cartUpdated = updateQuantity(cartLS, product.id, product.cantidad);
+        
         } else if (product.cantidad > product.rating.count) {
             product.cantidad = product.rating.count;
             cartUpdated = updateQuantity(cartLS, product.id, product.cantidad);
             console.log("stock máximo alcanzado");
+            createNotification("No hay más unidades en stock.");
         }
         verificarBotones();
         createNotification("Se agregó el producto al carrito.");
         endListener(cartUpdated);
-        updateBadgeCounter(cartUpdated)
     });
 
 

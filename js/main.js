@@ -42,4 +42,5 @@ vaciarBtn.addEventListener("click", () => {
     updateBadgeCounter()
 });
 
+updateBadgeCounter()
 renderProducts(products, containerId);

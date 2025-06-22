@@ -81,7 +81,7 @@ export const renderCartItems = (cartArray) => {
             const nuevoCart = removeFromCart(cartArray, id);
             updateCartSidebar(nuevoCart);
             saveCartToLS(nuevoCart)
-            updateBadgeCounter(nuevoCart)
+            updateBadgeCounter()
         });
     });
 };

@@ -1,7 +1,3 @@
-// Esta funcion muestra el modal con los detalles de un product
-// Debe tener boton para cerrar y otro para agregar al carrito
-// tiene que exportar showProductModal(product)
-
 import { addToCart, updateQuantity, removeFromCart } from "../cart/cartManager.js";
 import { getCartFromLS, saveCartToLS } from "../cart/localStorageHandler.js";
 import { renderCartItems } from "./CartSidebar.js";
@@ -55,7 +51,7 @@ const showProductModal = (product) => {
                               <button id="restar" class="btn btn-agregar">-</button>
                               <span id="spanCantidad" class="cantidad fw-bold text-center mx-2">${product.cantidad}</span>
                               <button id="sumar" class="btn btn-agregar">+</button>
-                              <button id="agregar" class="btn btn-agregar">Agregar al carrito</button>
+                              <button id="agregar" class="card-btn btn-hover-effect">Agregar al carrito</button>
                           </div>
                         </div>
                       </div>

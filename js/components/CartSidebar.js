@@ -3,9 +3,6 @@ import { createCartItem } from "../components/CartItem.js";
 import { saveCartToLS } from "../cart/localStorageHandler.js"
 
 const totalPriceElement = document.getElementById("precio-total");
-const checkoutBtn = document.getElementById("checkoutBtn");
-
-
 
 export const renderCartItems = (cartArray) => {
     const cartContainer = document.getElementById("cart-items");

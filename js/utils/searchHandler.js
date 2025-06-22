@@ -1,11 +1,4 @@
 /**
- * searchHandler.js
- * 
- * Este módulo se encarga de configurar la búsqueda en vivo.
- * No guarda ni renderiza productos por sí solo: usa la función externa `renderProducts`.
- */
-
-/**
  * @param {Array} products
  * @param {string} inputId
  * @param {Function} renderProducts

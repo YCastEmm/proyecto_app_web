@@ -258,7 +258,7 @@ main {
 *                            *
 *****************************/
 .modal-dialog {
-    min-width: 340px;
+    margin: 40px auto;
 }
 .btn-agregar{
     background-color: #f8f8f8;
@@ -274,7 +274,25 @@ main {
 }
 
 @media (max-width: 576px) {
-    .modal-dialog{
-        margin: 28px 38px 50px;
+    .modal-dialog {
+        max-width: 450px;
+        margin: 20px auto;
+        padding: 0 12px;
+    }
+
+    h5 {
+        max-width: 350px;
+    }
+}
+
+@media (max-width: 450px) {
+    .modal-dialog {
+        max-width: 430px;
+        font-size: 14px;
+    }
+
+    .modal-title {
+        max-width: 350px;
+        font-size: 18px;
     }
 }

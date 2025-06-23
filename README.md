@@ -17,6 +17,9 @@ Este proyecto es una aplicación web de e-commerce desarrollada como parte del L
 - Página de confirmación de compra.
 
 ## Cómo ejecutarlo
-1. Cloná el repositorio o abrí la carpeta del proyecto.
-2. Asegurate de tener un servidor local (ej: Live Server en VSCode).
-3. Abrí `index.html` en el navegador.
+#### 1. Cloná el repositorio 
+```bash
+git clone https://github.com/YCastEmm/proyecto_app_web
+```
+#### 2. Abrí la carpeta del proyecto en Visual Studio Code.
+#### 3. Abrí el index.html con Live Server.
